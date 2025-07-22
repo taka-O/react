@@ -11,6 +11,7 @@ docker compose up -d<br>
 
 # Docker react環境への接続
 docker compose react-app bash<br>
+localhost:3001にアクセスする<br>
 
 # API接続設定
 vite.config.tsにて接続先を設定<br>
