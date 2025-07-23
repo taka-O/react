@@ -9,10 +9,10 @@ export default defineConfig({
     port: 3001,
     proxy: {
      "/api": {
-       target: "http://rails:3000/", // rails api 接続用
+       //target: "http://rails:3000/", // rails api 接続用
        //target: "http://nginx/", // Larabel api 接続用
-       //target: "http://spring:8080/", // spring-boot api 接続用
-       changeOrigin: true
+       target: "http://spring:8080/", // spring-boot api 接続用
+       //changeOrigin: true
      }
     }
   },

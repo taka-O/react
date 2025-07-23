@@ -93,9 +93,11 @@ const Search: React.FC = () =>  {
           <Typography sx={{ color: 'red', mb: 1.5 }}>{ error }</Typography>
         </Grid>
         <Grid>
-          <Link href="/admin/user/add">
-              <AddCircleOutlineOutlinedIcon />
-          </Link>
+          <Box sx={{ display: 'flex' }}>
+            <Link href="/admin/user/add">
+                <AddCircleOutlineOutlinedIcon />
+            </Link>
+          </Box>
         </Grid>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">

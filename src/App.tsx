@@ -5,6 +5,7 @@ import Layout from "./layout/Layout";
 import Home from './pages/Home';
 import Login from './auth/Login';
 import AdminUserSearch from './pages/admin/user/Search';
+import AdminUserAdd from './pages/admin/user/Add';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Route path="/" element={<Layout />}>
               <Route path="/" element={<Home />} />
               <Route path="/admin/user" element={<AdminUserSearch />} />
+              <Route path="/admin/user/add" element={<AdminUserAdd />} />
               <Route path="*" element={<h1>Not Found Page</h1>} />
             </Route>
           </Routes>
