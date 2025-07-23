@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import SideMenu from './SideMenu';
+import SideMenu from '../component/SideMenu';
 
 const drawerWidth = 240;
 

@@ -5,6 +5,7 @@ import {
   Box,
   Button,
   Grid,
+  Link,
   MenuItem,
   Paper,
   Select,
@@ -17,6 +18,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import type { User } from "../../../types";
 
 const Search: React.FC = () =>  {
@@ -84,39 +86,42 @@ const Search: React.FC = () =>  {
             </Select>
           </Grid>
           <Grid size={3}>
-            <Box>
-              <Button onClick={handleSubmit} type="button" color="primary" variant="contained">
-                検索
-              </Button>
-            </Box>
+            <Button onClick={handleSubmit} type="button" color="primary" variant="contained">
+              検索
+            </Button>
           </Grid>
           <Typography sx={{ color: 'red', mb: 1.5 }}>{ error }</Typography>
         </Grid>
-          <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell>name</TableCell>
-                  <TableCell>email</TableCell>
-                  <TableCell>role</TableCell>
+        <Grid>
+          <Link href="/admin/user/add">
+              <AddCircleOutlineOutlinedIcon />
+          </Link>
+        </Grid>
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell>name</TableCell>
+                <TableCell>email</TableCell>
+                <TableCell>role</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows.map((row) => (
+                <TableRow
+                  key={row.id}
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
+                  <TableCell component="th" scope="row">
+                    {row.name}
+                  </TableCell>
+                  <TableCell>{row.email}</TableCell>
+                  <TableCell>{row.role}</TableCell>
                 </TableRow>
-              </TableHead>
-              <TableBody>
-                {rows.map((row) => (
-                  <TableRow
-                    key={row.id}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                  >
-                    <TableCell component="th" scope="row">
-                      {row.name}
-                    </TableCell>
-                    <TableCell>{row.email}</TableCell>
-                    <TableCell>{row.role}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </Box>
     </>
   );
