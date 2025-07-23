@@ -14,9 +14,9 @@ docker compose react-app bash<br>
 localhost:3001にアクセスする<br>
 
 # API接続設定
-vite.config.tsにて接続先を設定<br>
-<br>
-rails apiのdocker環境へ接続<br>target: "http://rails:3000/"を有効にする
-Larabel apiのdocker環境へ接続<br>target: "http://nginx/"を有効にする
-spring-boot apiのdocker環境へ接続<br>target: "http://spring:8080/"を有効にする
-
+vite.config.tsにて接続先を設定
+<ul>
+<li>rails apiのdocker環境へ接続</li>target: "http://rails:3000/"を有効にする
+<li>Larabel apiのdocker環境へ接続</li>target: "http://nginx/"を有効にする
+<li>spring-boot apiのdocker環境へ接続</li>target: "http://spring:8080/"を有効にする
+</ul>
