@@ -58,6 +58,7 @@ const Add: React.FC = () =>  {
       }
     } catch (err: any) {
       setError('システムエラー');
+      setSubmitDisabled(false);
     }
   };
 
