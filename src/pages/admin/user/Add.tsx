@@ -43,15 +43,27 @@ const Add: React.FC = () =>  {
         setError('登録しました');
       } else {
         let error: ErrorResponse = await response.json();
-        setError('登録に失敗しました');
-        if(error.errors.hasOwnProperty('name')) {
-          setNameError(error.errors.name.toString());
-        }
-        if(error.errors.hasOwnProperty('email')) {
-          setEmailError(error.errors.email.toString());
-        }
-        if(error.errors.hasOwnProperty('role')) {
-          setRoleError(error.errors.role.toString());
+        let msgs: string[] = [];
+        Object.entries(error.errors).forEach(([key, value]) => {
+          switch (key) {
+            case 'name':
+              setNameError(value.toString());
+              break;
+            case 'email':
+              setEmailError(value.toString());
+              break;
+            case 'role':
+              setRoleError(value.toString());
+              break;
+            default:
+              msgs.push(value.toString())
+              break;
+          }
+        });
+        if (msgs.length > 0) {
+          setError(`登録に失敗しました（${msgs.toString()}）`);
+        } else {
+          setError('登録に失敗しました');
         }
 
         setSubmitDisabled(false);
