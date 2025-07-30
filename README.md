@@ -21,6 +21,8 @@ vite.config.tsにて接続先を設定
 <li>spring-boot apiのdocker環境へ接続</li>target: "http://spring:8080/"を有効にする
 </ul>
 
-# Mailhog問題点
-mailhogのパスワード変更リンクから画面が開けない<br>
-また、plain textに表示されるURLが、本来`=`の箇所が`=3D`に変更されそのままのURLではトークンが一致しない<br>
+# Mail
+Mailpitのコンソールにて送信されたメールを確認<br>
+htt://localhost:8025<br>
+リンクを直接開けないので、text等からパラメータをコピーして使用する
+
