@@ -31,11 +31,15 @@ const SendResetPasswordMail: React.FC = () => {
         setSubmitDisabled(true);
       } else {
         let error: ErrorResponse = await response.json();
-        let msgs: string[] = [];
-        Object.entries(error.errors).forEach(([key, value]) => {
-          msgs.push(value.toString())
-        });
-        setError(`メール送信に失敗しました（${msgs.toString()}）`);
+        if (error.errors === undefined) {
+          setError(`メール送信に失敗しました（${error.message}）`);
+        } else {
+          let msgs: string[] = [];
+          Object.entries(error.errors).forEach(([key, value]) => {
+            msgs.push(value.toString())
+          });
+          setError(`メール送信に失敗しました（${msgs.toString()}）`);
+        }
       }
     } catch (err: any) {
       setError("メール送信に失敗しました（システムエラー）");

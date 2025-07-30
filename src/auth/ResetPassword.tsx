@@ -36,11 +36,15 @@ const ResetPassword: React.FC = () => {
         setSubmitDisabled(true);
       } else {
         let error: ErrorResponse = await response.json();
-        let msgs: string[] = [];
-        Object.entries(error.errors).forEach(([key, value]) => {
-          msgs.push(value.toString())
-        });
-        setError(`パスワード変更に失敗しました（${msgs.toString()}）`);
+        if (error.errors === undefined) {
+          setError(`パスワード変更に失敗しました（${error.message}）`);
+        } else {
+          let msgs: string[] = [];
+          Object.entries(error.errors).forEach(([key, value]) => {
+            msgs.push(value.toString())
+          });
+          setError(`パスワード変更に失敗しました（${msgs.toString()}）`);
+        }
       }
     } catch (err: any) {
       setError("パスワード変更に失敗しました（システムエラー）");

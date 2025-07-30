@@ -11,20 +11,20 @@ const RoleBasedComponentMenu: React.FC = () => {
   const [user, setUser] = useState<User | null>(getUser());
 
   const isAdmin = (): boolean => {
-    if (user == null) { return false };
+    if (user === null) { return false };
 
-    return (user.role.toUpperCase() == 'ADMIN') ? true : false
+    return (user.role.toUpperCase() === 'ADMIN') ? true : false
   };
 
   const isInstructor = (): boolean => {
-    if (user == null) { return false };
+    if (user === null) { return false };
 
-    return (user.role.toUpperCase() == 'INSTRUCTOR') ? true : false
+    return (user.role.toUpperCase() === 'INSTRUCTOR') ? true : false
   };
 
   useEffect(() => {
       (async() => {
-          if (user == null) {
+          if (user === null) {
               try {
                   const response = await post('/api/auth/current', {}, token);
 

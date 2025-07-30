@@ -19,7 +19,7 @@ const SideMenu: React.FC = () => {
 
     useEffect(() => {
         (async() => {
-            if (user == null) {
+            if (user === null) {
                 try {
                     const response = await post('/api/auth/current', {}, token);
 
