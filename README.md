@@ -20,3 +20,7 @@ vite.config.tsにて接続先を設定
 <li>Larabel apiのdocker環境へ接続</li>target: "http://nginx/"を有効にする
 <li>spring-boot apiのdocker環境へ接続</li>target: "http://spring:8080/"を有効にする
 </ul>
+
+# Mailhog問題点
+mailhogのパスワード変更リンクから画面が開けない<br>
+また、plain textに表示されるURLが、本来`=`の箇所が`=3D`に変更されそのままのURLではトークンが一致しない<br>
