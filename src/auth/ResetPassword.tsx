@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { useAuth } from "../AuthContext";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { post } from "../component/api/Service";
 import {
   Avatar,
@@ -14,32 +13,37 @@ import {
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { teal } from "@mui/material/colors";
-import type { LoginResponse } from "../types";
+import type { ErrorResponse } from "../types";
 
-const Login: React.FC = () => {
-  const [email, setEmail] = useState('');
+const ResetPassword: React.FC = () => {
   const [password, setPassword] = useState('');
+  const [password_confirmation, setPasswordConfirmation] = useState('');
   const [error, setError] = useState('');
-  const { login } = useAuth();
-  const navigate = useNavigate();
+  const [submitDisabled, setSubmitDisabled] = useState(false);
   const location = useLocation();
-  const from = location.state?.from?.pathname || '/';
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
   
     try {
-      const response = await post('/api/auth/login', { email, password });
+      const queryParams = new URLSearchParams(location.search);
+      const email = queryParams.get('email');
+      const token = queryParams.get('token');
+      const response = await post('/api/auth/reset_password', { email, password, password_confirmation, token });
 
       if (response.ok) {
-        const data: LoginResponse = await response.json();
-        login(data);
-        navigate(from, { replace: true });
+        setError('パスワードを変更しました');
+        setSubmitDisabled(true);
       } else {
-        setError('ログインに失敗しました');
+        let error: ErrorResponse = await response.json();
+        let msgs: string[] = [];
+        Object.entries(error.errors).forEach(([key, value]) => {
+          msgs.push(value.toString())
+        });
+        setError(`パスワード変更に失敗しました（${msgs.toString()}）`);
       }
     } catch (err: any) {
-      setError("ログインに失敗しました");
+      setError("パスワード変更に失敗しました（システムエラー）");
     }
   };
 
@@ -65,32 +69,38 @@ const Login: React.FC = () => {
               <LockOutlinedIcon />
             </Avatar>
             <Typography variant={"h5"} sx={{ m: "30px" }}>
-              ログイン
+              パスワード変更
             </Typography>
           </Grid>
           <Typography sx={{ color: 'red', mb: 1.5 }}>{ error }</Typography>
           <TextField
-            label="Email"
-            variant="standard"
-            fullWidth
-            required
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <TextField
             type="password"
-            label="Password"
+            label="新しいパスワード"
             variant="standard"
             fullWidth
             required
             onChange={(e) => setPassword(e.target.value)}
           />
+          <TextField
+            type="password"
+            label="新しいパスワード（確認用）"
+            variant="standard"
+            fullWidth
+            required
+            onChange={(e) => setPasswordConfirmation(e.target.value)}
+          />
           <Box mt={3}>
-            <Button type="submit" color="primary" variant="contained" fullWidth>
-              ログイン
+            <Button type="submit"
+              color="primary"
+              variant="contained"
+              fullWidth
+              disabled={submitDisabled}
+            >
+              パスワード変更
             </Button>
 
             <Typography variant="caption">
-              <Link href="/send_reset_password_mail">パスワードを忘れましたか？</Link>
+              <Link href="/login">ログインへ</Link>
             </Typography>
           </Box>
         </form>
@@ -99,4 +109,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+export default ResetPassword;

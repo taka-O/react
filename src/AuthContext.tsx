@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import type { LoginResponse, User } from "./types";
 
 type AuthContextType = {
@@ -17,13 +17,23 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const [token, setToken] = useState<string | null>(localStorage.getItem("token"));
     const [user, setUser] = useState<User | null>(null);
     const navigate = useNavigate();
+    const pathname = useLocation().pathname;
+
+    const isRequiredAuth = (): boolean => {
+      return (pathname.startsWith(`/login`) ||
+              pathname.startsWith(`/send_reset_password_mail`) ||
+              pathname.startsWith(`/reset_password`)) ? false : true
+
+    }
 
     useEffect(() => {
         const storedToken = localStorage.getItem("token");
         if (storedToken) {
           setToken(storedToken);
         } else {
-          navigate('/login');
+          if (isRequiredAuth()) {
+            navigate('/login');
+          }
         }
     }, []);
 

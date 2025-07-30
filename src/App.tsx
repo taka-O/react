@@ -4,6 +4,8 @@ import { AuthProvider } from './AuthContext';
 import Layout from "./layout/Layout";
 import Home from './pages/Home';
 import Login from './auth/Login';
+import SendResetPasswordMail from './auth/SendResetPasswordMail';
+import ResetPassword from './auth/ResetPassword';
 import AdminUserSearch from './pages/admin/user/Search';
 import AdminUserAdd from './pages/admin/user/Add';
 
@@ -15,6 +17,8 @@ function App() {
         <AuthProvider>
           <Routes>
             <Route path="/login" element={<Login />} />
+            <Route path="/send_reset_password_mail" element={<SendResetPasswordMail />} />
+            <Route path="/reset_password" element={<ResetPassword />} />
             <Route path="/" element={<Layout />}>
               <Route path="/" element={<Home />} />
               <Route path="/admin/user" element={<AdminUserSearch />} />

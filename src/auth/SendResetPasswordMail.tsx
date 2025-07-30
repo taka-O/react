@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { useAuth } from "../AuthContext";
-import { useNavigate, useLocation } from "react-router-dom";
 import { post } from "../component/api/Service";
 import {
   Avatar,
@@ -14,32 +12,33 @@ import {
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { teal } from "@mui/material/colors";
-import type { LoginResponse } from "../types";
+import type { ErrorResponse } from "../types";
 
-const Login: React.FC = () => {
+const SendResetPasswordMail: React.FC = () => {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const { login } = useAuth();
-  const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || '/';
-
+  const [submitDisabled, setSubmitDisabled] = useState(false);
+  
   const handleSubmit = async (e: any) => {
     e.preventDefault();
   
     try {
-      const response = await post('/api/auth/login', { email, password });
+      const reset_url: string = `${window.location.protocol}//${window.location.hostname}::${window.location.port}/reset_password`;
+      const response = await post('/api/auth/send_reset_password_token', { email, reset_url });
 
       if (response.ok) {
-        const data: LoginResponse = await response.json();
-        login(data);
-        navigate(from, { replace: true });
+        setError('メール送信が完了しました');
+        setSubmitDisabled(true);
       } else {
-        setError('ログインに失敗しました');
+        let error: ErrorResponse = await response.json();
+        let msgs: string[] = [];
+        Object.entries(error.errors).forEach(([key, value]) => {
+          msgs.push(value.toString())
+        });
+        setError(`メール送信に失敗しました（${msgs.toString()}）`);
       }
     } catch (err: any) {
-      setError("ログインに失敗しました");
+      setError("メール送信に失敗しました（システムエラー）");
     }
   };
 
@@ -65,7 +64,7 @@ const Login: React.FC = () => {
               <LockOutlinedIcon />
             </Avatar>
             <Typography variant={"h5"} sx={{ m: "30px" }}>
-              ログイン
+              パスワード変更メール送信
             </Typography>
           </Grid>
           <Typography sx={{ color: 'red', mb: 1.5 }}>{ error }</Typography>
@@ -76,21 +75,17 @@ const Login: React.FC = () => {
             required
             onChange={(e) => setEmail(e.target.value)}
           />
-          <TextField
-            type="password"
-            label="Password"
-            variant="standard"
-            fullWidth
-            required
-            onChange={(e) => setPassword(e.target.value)}
-          />
           <Box mt={3}>
-            <Button type="submit" color="primary" variant="contained" fullWidth>
-              ログイン
+            <Button type="submit"
+              color="primary"
+              variant="contained"
+              fullWidth
+              disabled={submitDisabled}
+            >
+              メール送信
             </Button>
-
             <Typography variant="caption">
-              <Link href="/send_reset_password_mail">パスワードを忘れましたか？</Link>
+              <Link href="/login">ログインへ</Link>
             </Typography>
           </Box>
         </form>
@@ -99,4 +94,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+export default SendResetPasswordMail;
