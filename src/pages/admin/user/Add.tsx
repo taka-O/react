@@ -39,11 +39,11 @@ const Add: React.FC = () =>  {
       const response = await post('/api/admin/users', { name, email, role }, token);
 
       if (response.ok) {
-        let user: User = await response.json();
+        const user: User = await response.json();
         setError('登録しました');
       } else {
-        let error: ErrorResponse = await response.json();
-        let msgs: string[] = [];
+        const error: ErrorResponse = await response.json();
+        const msgs: string[] = [];
         Object.entries(error.errors).forEach(([key, value]) => {
           switch (key) {
             case 'name':

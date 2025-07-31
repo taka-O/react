@@ -9,9 +9,10 @@ import {
 from '@mui/material'
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import Logout from "@mui/icons-material/Logout";
+import FactCheckIcon from '@mui/icons-material/FactCheck';
 
 const StudentMenu: React.FC = () => {
-  const { logout, token } = useAuth();
+  const { logout } = useAuth();
 
   return (
       <>
@@ -23,7 +24,13 @@ const StudentMenu: React.FC = () => {
                   <ListItemText primary="Home">
                   </ListItemText>
               </ListItemButton>
-              {token &&
+              <ListItemButton component="a" href="/instructor/course">
+                  <ListItemIcon>
+                  <FactCheckIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Course">
+                  </ListItemText>
+              </ListItemButton>
               <ListItemButton onClick={logout}>
                   <ListItemIcon>
                   <Logout />
@@ -31,7 +38,6 @@ const StudentMenu: React.FC = () => {
                   <ListItemText primary="Logout">
                   </ListItemText>
               </ListItemButton>
-              }
           </List>
       </>
   );

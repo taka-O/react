@@ -12,7 +12,7 @@ import PeopleIcon from '@mui/icons-material/People';
 import Logout from "@mui/icons-material/Logout";
 
 const AdminMenu: React.FC = () => {
-  const { logout, token } = useAuth();
+  const { logout } = useAuth();
 
   return (
       <>
@@ -31,7 +31,6 @@ const AdminMenu: React.FC = () => {
                   <ListItemText primary="User">
                   </ListItemText>
               </ListItemButton>
-              {token &&
               <ListItemButton onClick={logout}>
                   <ListItemIcon>
                   <Logout />
@@ -39,7 +38,6 @@ const AdminMenu: React.FC = () => {
                   <ListItemText primary="Logout">
                   </ListItemText>
               </ListItemButton>
-              }
           </List>
       </>
   );

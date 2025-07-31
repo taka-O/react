@@ -8,6 +8,8 @@ import SendResetPasswordMail from './auth/SendResetPasswordMail';
 import ResetPassword from './auth/ResetPassword';
 import AdminUserSearch from './pages/admin/user/Search';
 import AdminUserAdd from './pages/admin/user/Add';
+import InstructorCourse from './pages/instructor/course/Index';
+import StudentCourse from './pages/student/course/Index';
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/admin/user" element={<AdminUserSearch />} />
               <Route path="/admin/user/add" element={<AdminUserAdd />} />
+              <Route path="/instructor/course" element={<InstructorCourse />} />
+              <Route path="/student/course" element={<StudentCourse />} />
               <Route path="*" element={<h1>Not Found Page</h1>} />
             </Route>
           </Routes>
