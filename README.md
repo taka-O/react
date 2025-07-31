@@ -7,11 +7,15 @@ vite<br>
 @material ui<br>
 
 # Dockerセットアップ、および起動
-docker compose up -d<br>
+<ul>
+<li>セットアップ、および起動</li>docker compose up -d
+<li>npm install（コンテナの起動に失敗するため）</li>docker compose run --rm react-app npm install
+<li>再起動</li>docker compose up -d
+</ul>
 
 # Docker react環境への接続
 docker compose react-app bash<br>
-localhost:3001にアクセスする<br>
+ブラウザにてlocalhost:3001にアクセスする<br>
 
 # API接続設定
 vite.config.tsにて接続先を設定
