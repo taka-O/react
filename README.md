@@ -8,7 +8,8 @@ vite<br>
 
 # Dockerセットアップ、および起動
 <ul>
-<li>セットアップ、および起動</li>docker compose up -d
+<li>セットアップ、および起動</li>docker compose up -d<br>
+  ※　エラー「network dev_network declared as external, but could not be found」が表示された場合、compose.ymlの「external: true」をコメントアウトして再実行する
 <li>npm install（コンテナの起動に失敗するため）</li>docker compose run --rm react-app npm install
 <li>再起動</li>docker compose up -d
 </ul>
